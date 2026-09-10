@@ -5,236 +5,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="文件改名台与视频截图拼图台：两款 Windows 本地桌面工具，无需登录、无需上传文件。"
+      content="本地工具套件：文件改名台与视频截图拼图台，两款 Windows 本地桌面工具。"
     />
-    <meta name="theme-color" content="#f2f4f7" />
-    <title>本地工具套件 | 文件改名与视频拼图</title>
-    <link rel="icon" href="./assets/app-icon.png" />
+    <title>本地工具套件 | Windows 文件改名与视频截图</title>
+    <link rel="icon" href="./assets/video-icon.png" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body data-page="home">
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="返回顶部">
-        <span class="brand-dots" aria-hidden="true">
-          <img src="./assets/app-icon.png" alt="" />
-          <img src="./assets/video-icon.png" alt="" />
-        </span>
+      <a class="brand" href="./index.html">
+        <img src="./assets/video-icon.png" alt="" />
         <span>
           <strong>本地工具套件</strong>
           <small>Windows Desktop Tools</small>
         </span>
       </a>
       <nav class="site-nav" aria-label="主导航">
-        <a href="#renamer">文件改名</a>
-        <a href="#video-grid">视频拼图</a>
-        <a href="#download">下载</a>
-        <a class="nav-github" href="https://github.com/tenaciousMa/local-tools-suite" target="_blank" rel="noreferrer">
-          GitHub
-        </a>
+        <a href="./index.html" aria-current="page">总览</a>
+        <a href="./renamer/index.html">文件改名台</a>
+        <a href="./video-grid/index.html">视频截图拼图台</a>
+        <a href="https://github.com/tenaciousMa/local-tools-suite" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="nav-download" href="#download">下载</a>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero">
+    <main class="page">
+      <section class="page-hero home-hero">
         <div class="hero-copy">
-          <p class="eyebrow">Windows 10/11 x64 · 本地处理</p>
-          <h1>文件改名台 + 视频截图拼图台</h1>
-          <p class="hero-lede">
-            把批量改名、ZIP 导出、视频选帧和拼图排版收进两个原生桌面工具。文件留在电脑本地，不经过网页上传。
+          <p class="eyebrow">Windows 10 / 11 · Local Processing</p>
+          <h1>本地工具套件</h1>
+          <p class="hero-lead">
+            把批量文件改名和视频截图拼图收进两个原生 Windows 工具。
+            文件始终留在电脑本地，不经过浏览器上传。
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#download">
-              <span>选择安装包</span>
-              <span aria-hidden="true">↓</span>
+            <a class="button primary large" href="#products">
+              查看两款软件
+              <span aria-hidden="true">→</span>
             </a>
-            <a class="button secondary" href="#features">查看功能</a>
+            <a class="button secondary large" href="#download">直接下载</a>
           </div>
           <dl class="hero-facts">
-            <div>
-              <dt>2</dt>
-              <dd>款原生工具</dd>
-            </div>
-            <div>
-              <dt>0</dt>
-              <dd>文件上传</dd>
-            </div>
-            <div>
-              <dt>EXE</dt>
-              <dd>直接运行</dd>
-            </div>
+            <div><dt>2</dt><dd>款原生桌面软件</dd></div>
+            <div><dt>0</dt><dd>文件上传</dd></div>
+            <div><dt>EXE</dt><dd>Windows 直接运行</dd></div>
           </dl>
         </div>
 
-        <div class="workspace-visual" aria-label="实际软件界面预览">
-          <img
-            class="actual-app-screenshot"
-            src="./assets/app-main.png"
-            alt="视频截图拼图台真实软件界面"
-            width="1360"
-            height="860"
-          />
-          <div class="hero-tool-row">
-            <span><img src="./assets/app-icon.png" alt="" />文件改名台</span>
-            <span><img src="./assets/video-icon.png" alt="" />视频截图拼图台</span>
-          </div>
+        <div class="home-stack">
+          <a class="home-product" href="./renamer/index.html">
+            <img src="./assets/renamer-main.png" alt="文件改名台真实界面" />
+            <div>
+              <p class="eyebrow">Batch Rename</p>
+              <h2>文件改名台</h2>
+              <p>模板命名、实时预览、一键改源文件或导出 ZIP。</p>
+            </div>
+            <span class="button secondary">查看详情</span>
+          </a>
+          <a class="home-product" href="./video-grid/index.html">
+            <img src="./assets/app-main.png" alt="视频截图拼图台真实界面" />
+            <div>
+              <p class="eyebrow">Video Contact Sheet</p>
+              <h2>视频截图拼图台</h2>
+              <p>播放器选帧、长视频快速取帧、多页拼图和 PDF 导出。</p>
+            </div>
+            <span class="button secondary">查看详情</span>
+          </a>
         </div>
       </section>
 
-      <section class="feature-band" id="features">
+      <section class="section" id="products">
         <div class="section-heading">
-          <p class="eyebrow">核心功能</p>
-          <h2>重复操作，一次配置</h2>
-          <p>两种工作流覆盖最常见的本地素材整理任务。</p>
+          <p class="eyebrow">产品入口</p>
+          <h2>每款软件都有独立介绍与下载入口</h2>
+          <p>下载按钮位于每款软件介绍页顶部，便于快速获取安装文件。</p>
+        </div>
+        <div class="product-card-grid">
+          <article class="product-card reveal">
+            <img src="./assets/renamer-main.png" alt="文件改名台界面" />
+            <div class="product-card-body">
+              <p class="eyebrow">File Renamer</p>
+              <h3>文件改名台</h3>
+              <p>使用日期、序号和原文件名组合模板，预览后直接改名或导出 ZIP。</p>
+              <div class="card-actions">
+                <a class="button primary" href="./renamer/index.html">进入软件页</a>
+                <a
+                  class="button secondary"
+                  href="https://github.com/tenaciousMa/local-tools-suite/releases/latest/download/FileRenamerTool.exe"
+                >
+                  直接下载
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="product-card reveal">
+            <img src="./assets/contact-sheet-demo.png" alt="视频截图拼图输出" />
+            <div class="product-card-body">
+              <p class="eyebrow">Video Grid Studio</p>
+              <h3>视频截图拼图台</h3>
+              <p>自动或手动选帧，批量拼图、分页，并输出 PNG、JPG 或 PDF。</p>
+              <div class="card-actions">
+                <a class="button primary" href="./video-grid/index.html">进入软件页</a>
+                <a
+                  class="button secondary"
+                  href="https://github.com/tenaciousMa/local-tools-suite/releases/latest/download/VideoGridTool-Setup.exe"
+                >
+                  下载安装包
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="download">
+        <div class="section-heading">
+          <p class="eyebrow">下载中心</p>
+          <h2>Windows 10 / 11 x64</h2>
+          <p>所有程序均在本机运行。安装包中已包含所需运行组件。</p>
         </div>
         <div class="feature-grid">
-          <article>
-            <span class="feature-index">01</span>
-            <h3>自由命名模板</h3>
-            <p>直接编辑文字，插入日期、时间、序号和原文件名变量，右侧实时预览结果。</p>
-          </article>
-          <article>
-            <span class="feature-index">02</span>
-            <h3>改源文件或导出 ZIP</h3>
-            <p>可以原地改名，也可以打包成 ZIP 留档；ZIP 保存位置可手动选择。</p>
-          </article>
-          <article>
-            <span class="feature-index">03</span>
-            <h3>批量视频选帧</h3>
-            <p>按时长等分或播放器手动选帧，自动排成 2 到 24 格，并支持多页导出。</p>
-          </article>
-          <article>
-            <span class="feature-index">04</span>
-            <h3>本地隐私处理</h3>
-            <p>文件不经过云端，不要求上传账号数据；关闭工具后不会保留云端副本。</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="product-section renamer" id="renamer">
-        <div class="product-copy">
-          <div class="product-kicker">
-            <img src="./assets/app-icon.png" alt="" />
-            <span>文件改名台</span>
-          </div>
-          <h2>让文件名自己排队</h2>
-          <p>
-            选择文件或文件夹后，用模板组合日期、序号、原名和说明文字。改名结果先在表格中预览，再决定直接修改源文件或导出 ZIP。
-          </p>
-          <ul class="check-list">
-            <li>支持文件、文件夹和拖拽导入</li>
-            <li>数字日期、中文日期、时间与序号变量</li>
-            <li>冲突自动追加序号，避免覆盖原文件</li>
-            <li>可直接改源文件，也可导出 ZIP 副本</li>
-            <li>可切换完成后是否打开原文件夹</li>
-          </ul>
-        </div>
-        <div class="product-panel renamer-panel">
-          <div class="panel-label">模板示例</div>
-          <code>项目资料_{YYYY}年{MM}月{DD}日_第{num}份</code>
-          <div class="sample-list">
-            <div><span>项目资料_2026年09月10日_第01份.png</span><em>准备</em></div>
-            <div><span>项目资料_2026年09月10日_第02份.png</span><em>准备</em></div>
-            <div><span>项目资料_2026年09月10日_第03份.md</span><em>准备</em></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="product-section video-grid" id="video-grid">
-        <div class="product-panel video-panel">
-          <div class="panel-label">拼图预览</div>
-          <img
-            class="contact-sheet-demo"
-            src="./assets/contact-sheet-demo.png"
-            alt="视频九宫格截图实际导出示例"
-            width="1754"
-            height="1199"
-          />
-        </div>
-        <div class="product-copy">
-          <div class="product-kicker">
-            <img src="./assets/video-icon.png" alt="" />
-            <span>视频截图拼图台</span>
-          </div>
-          <h2>从视频到缩略图总览</h2>
-          <p>
-            批量按视频时长取帧，或者用内置播放器手动选帧。每页格数、画格比例、标题格式和导出尺寸都可以按任务调整。
-          </p>
-          <ul class="check-list">
-            <li>2、4、5、6、8、9、12 到 120 格排布</li>
-            <li>播放器手动选帧与批量自动取帧</li>
-            <li>LibVLC 播放器与完整播放器快捷键</li>
-            <li>PNG、JPG、PDF 多格式导出</li>
-            <li>PDF 可分别生成或合并全部视频</li>
-            <li>1080P 到 16K，以及 A3/A4 版式</li>
-            <li>多视频分别导出、合并导出或两者都做</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="download-section" id="download">
-        <div class="section-heading">
-          <p class="eyebrow">下载</p>
-          <h2>选择要安装的工具</h2>
-          <p>安装包放在 GitHub Releases，点击后直接下载；Windows 10/11 x64 可直接运行。</p>
-        </div>
-
-        <div class="download-grid">
-          <article class="download-card">
-            <div class="download-product">
-              <img src="./assets/app-icon.png" alt="文件改名台图标" />
-              <div>
-                <span>文件改名台</span>
-                <small>单文件绿色版 · 约 68.4 MB</small>
-              </div>
+          <article class="feature-card reveal">
+            <small>01 / FILE RENAMER</small>
+            <h3>文件改名台</h3>
+            <p>单文件绿色版，约 68.4 MB，下载后直接运行。</p>
+            <div class="card-actions">
+              <a
+                class="button primary"
+                href="https://github.com/tenaciousMa/local-tools-suite/releases/latest/download/FileRenamerTool.exe"
+              >
+                下载 EXE
+              </a>
             </div>
-            <p>自由模板、批量预览、直接改源文件、ZIP 导出和完成后打开文件夹。</p>
-            <a
-              class="button primary full"
-              href="https://github.com/tenaciousMa/local-tools-suite/releases/latest/download/FileRenamerTool.exe"
-            >
-              下载 Windows 版
-              <span aria-hidden="true">↓</span>
-            </a>
           </article>
-
-          <article class="download-card">
-            <div class="download-product">
-              <img src="./assets/video-icon.png" alt="视频截图拼图台图标" />
-              <div>
-                <span>视频截图拼图台</span>
-                <small>标准安装包 · 约 102.0 MB</small>
-              </div>
+          <article class="feature-card reveal">
+            <small>02 / VIDEO GRID</small>
+            <h3>视频截图拼图台</h3>
+            <p>标准安装包，约 102 MB，支持自定义安装目录与桌面快捷方式。</p>
+            <div class="card-actions">
+              <a
+                class="button primary"
+                href="https://github.com/tenaciousMa/local-tools-suite/releases/latest/download/VideoGridTool-Setup.exe"
+              >
+                下载安装包
+              </a>
             </div>
-            <p>视频选帧、拼图排版、多页导出，包含自定义安装目录和标准卸载程序。</p>
-            <a
-              class="button primary full"
-              href="https://github.com/tenaciousMa/local-tools-suite/releases/latest/download/VideoGridTool-Setup.exe"
-            >
-              下载安装包
-              <span aria-hidden="true">↓</span>
-            </a>
           </article>
-        </div>
-
-        <div class="compatibility-note" id="platformNote">
-          <span class="status-dot"></span>
-          <span>支持 Windows 10/11 x64。首次运行如出现 SmartScreen，请确认来源后再允许运行。</span>
+          <article class="feature-card reveal">
+            <small>03 / SOURCE</small>
+            <h3>GitHub 仓库</h3>
+            <p>查看源码、构建脚本、发布记录和后续版本。</p>
+            <div class="card-actions">
+              <a
+                class="button secondary"
+                href="https://github.com/tenaciousMa/local-tools-suite"
+                target="_blank"
+                rel="noreferrer"
+              >
+                打开仓库
+              </a>
+            </div>
+          </article>
         </div>
       </section>
     </main>
 
-    <footer>
-      <div>
-        <strong>本地工具套件</strong>
-        <span>文件不离开电脑，工作流保持简单。</span>
-      </div>
+    <footer class="footer">
+      <strong>本地工具套件</strong>
+      <span>文件不离开电脑，工作流保持简单。</span>
       <div class="footer-links">
-        <a href="#renamer">文件改名</a>
-        <a href="#video-grid">视频拼图</a>
+        <a href="./renamer/index.html">文件改名台</a>
+        <a href="./video-grid/index.html">视频截图拼图台</a>
         <a href="https://github.com/tenaciousMa/local-tools-suite" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </footer>
-
     <script src="./app.js"></script>
   </body>
 </html>
