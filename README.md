@@ -2,7 +2,19 @@
 
 两个 Windows 原生桌面工具，界面直接运行在 exe 中，不打开浏览器、不依赖 Node/Python。
 
-在线展示页：<https://tenaciousMa.github.io/local-tools-suite/>
+## 软件下载
+
+| 软件 | 说明 | 下载 |
+| --- | --- | --- |
+| 文件改名台 | 批量模板改名、实时预览、改源文件或导出 ZIP | [下载 FileRenamerTool.exe](https://github.com/tenaciousMa/local-tools-suite/releases/latest/download/FileRenamerTool.exe) |
+| 视频截图拼图台 | LibVLC 选帧、长视频快速取帧、拼图分页和 PDF 导出 | [下载 VideoGridTool-Setup.exe](https://github.com/tenaciousMa/local-tools-suite/releases/latest/download/VideoGridTool-Setup.exe) |
+
+## 在线展示
+
+- [项目总览页](https://htmlpreview.github.io/?https://raw.githubusercontent.com/tenaciousMa/local-tools-suite/main/docs/index.html)
+- [文件改名台介绍页](https://htmlpreview.github.io/?https://raw.githubusercontent.com/tenaciousMa/local-tools-suite/main/docs/renamer/index.html)
+- [视频截图拼图台介绍页](https://htmlpreview.github.io/?https://raw.githubusercontent.com/tenaciousMa/local-tools-suite/main/docs/video-grid/index.html)
+- [GitHub Releases](https://github.com/tenaciousMa/local-tools-suite/releases)
 
 ## 视频截图拼图台安装包
 
