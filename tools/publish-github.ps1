@@ -3,7 +3,8 @@
     [string]$Repository = "local-tools-suite",
     [string]$ReleaseTag = "v1.0.0",
     [string]$InstallerAssetName = "VideoGridTool-Setup.exe",
-    [string]$RenamerAssetName = "FileRenamerTool.exe"
+    [string]$RenamerAssetName = "FileRenamerTool.exe",
+    [switch]$SkipPush
 )
 
 $ErrorActionPreference = "Stop"
@@ -86,26 +87,38 @@ if ($pending) {
     git -C $root commit -m "Publish static showcase and release v1.0.0"
 }
 
-Write-Host "推送 main 分支..."
-$askPassPath = Join-Path $env:TEMP "video-grid-git-askpass.cmd"
-@"
+if (-not $SkipPush) {
+    Write-Host "推送 main 分支..."
+    $askPassPath = Join-Path $env:TEMP "video-grid-git-askpass.cmd"
+    @"
 @echo off
 echo %VIDEO_GRID_GIT_TOKEN%
 "@ | Set-Content -LiteralPath $askPassPath -Encoding ASCII
 
-try {
+    try {
     $env:VIDEO_GRID_GIT_TOKEN = $token
     $env:GIT_ASKPASS = $askPassPath
     $env:GIT_TERMINAL_PROMPT = "0"
-    git -C $root -c credential.helper= -c core.askpass="$askPassPath" push -u origin main
+    git -C $root -c credential.helper= -c core.askpass="$askPassPath" fetch origin main
     if ($LASTEXITCODE -ne 0) {
-        throw "git push 失败，退出代码：$LASTEXITCODE"
+        throw "git fetch 失败，退出代码：$LASTEXITCODE"
     }
-} finally {
-    Remove-Item Env:VIDEO_GRID_GIT_TOKEN -ErrorAction SilentlyContinue
-    Remove-Item Env:GIT_ASKPASS -ErrorAction SilentlyContinue
-    Remove-Item Env:GIT_TERMINAL_PROMPT -ErrorAction SilentlyContinue
-    Remove-Item -LiteralPath $askPassPath -Force -ErrorAction SilentlyContinue
+
+    git -C $root -c credential.helper= -c core.askpass="$askPassPath" rebase origin/main
+    if ($LASTEXITCODE -ne 0) {
+        throw "本地提交与远端 main 存在冲突，请手动处理后重试。"
+    }
+
+    git -C $root -c credential.helper= -c core.askpass="$askPassPath" push -u origin main
+        if ($LASTEXITCODE -ne 0) {
+            throw "git push 失败，退出代码：$LASTEXITCODE"
+        }
+    } finally {
+        Remove-Item Env:VIDEO_GRID_GIT_TOKEN -ErrorAction SilentlyContinue
+        Remove-Item Env:GIT_ASKPASS -ErrorAction SilentlyContinue
+        Remove-Item Env:GIT_TERMINAL_PROMPT -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $askPassPath -Force -ErrorAction SilentlyContinue
+    }
 }
 
 Write-Host "创建或更新 Release..."
@@ -139,8 +152,8 @@ function Upload-ReleaseAsset {
 
     foreach ($asset in $release.assets) {
         if ($asset.name -eq $AssetName) {
-            Invoke-GitHubApi -Method "Delete" -Uri $asset.url | Out-Null
-            break
+            Write-Host "已存在，跳过上传：$AssetName"
+            return
         }
     }
 
@@ -175,26 +188,39 @@ if (Test-Path -LiteralPath $renamerPath) {
 }
 
 Write-Host "启用 GitHub Pages..."
+$pagesNeedsManualSetup = $false
 try {
     Invoke-GitHubApi -Method "Get" -Uri "https://api.github.com/repos/$Owner/$Repository/pages" |
         Out-Null
-    Invoke-GitHubApi -Method "Put" -Uri "https://api.github.com/repos/$Owner/$Repository/pages" -Body @{
-        source = @{
-            branch = "main"
-            path = "/docs"
-        }
-    } | Out-Null
-} catch {
-    if ($_.Exception.Response.StatusCode.value__ -eq 404) {
-        Invoke-GitHubApi -Method "Post" -Uri "https://api.github.com/repos/$Owner/$Repository/pages" -Body @{
+    try {
+        Invoke-GitHubApi -Method "Put" -Uri "https://api.github.com/repos/$Owner/$Repository/pages" -Body @{
             source = @{
                 branch = "main"
                 path = "/docs"
             }
         } | Out-Null
-    } else {
-        Write-Warning "Pages 自动设置失败，请检查仓库 Settings > Pages。$($_.Exception.Message)"
+    } catch {
+        $pagesNeedsManualSetup = $true
     }
+} catch {
+    if ($_.Exception.Response.StatusCode.value__ -eq 404) {
+        try {
+            Invoke-GitHubApi -Method "Post" -Uri "https://api.github.com/repos/$Owner/$Repository/pages" -Body @{
+                source = @{
+                    branch = "main"
+                    path = "/docs"
+                }
+            } | Out-Null
+        } catch {
+            $pagesNeedsManualSetup = $true
+        }
+    } else {
+        $pagesNeedsManualSetup = $true
+    }
+}
+
+if ($pagesNeedsManualSetup) {
+    Write-Warning "当前 Token 没有修改 Pages 设置的权限。请在 GitHub 仓库 Settings > Pages 中选择 Deploy from a branch，并选择 main / docs。"
 }
 
 Write-Host ""
