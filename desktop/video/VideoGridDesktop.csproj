@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>false</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <PublishTrimmed>false</PublishTrimmed>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <VlcWindowsX64Enabled>true</VlcWindowsX64Enabled>
+    <VlcWindowsX86Enabled>false</VlcWindowsX86Enabled>
+    <VlcWindowsArm64Enabled>false</VlcWindowsArm64Enabled>
+    <AssemblyName>VideoGridDesktop</AssemblyName>
+    <RootNamespace>VideoGridDesktop</RootNamespace>
+    <ApplicationIcon>../../assets/video-icon.ico</ApplicationIcon>
+    <AssemblyTitle>视频截图拼图台</AssemblyTitle>
+    <Product>视频截图拼图台</Product>
+    <Description>本地视频播放器选帧、自动等分截图、分页排版与 PDF/图片导出工具</Description>
+    <Company>Local Tools</Company>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="../../assets/video-icon.ico" Link="assets/video-icon.ico" />
+    <Resource Include="../../assets/video-icon.png" Link="assets/video-icon.png" />
+    <PackageReference Include="FFmpeg.Static" Version="4.4.0.7" GeneratePathProperty="true" />
+    <PackageReference Include="LibVLCSharp.WPF" Version="3.10.1" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.23.1" />
+    <None Include="$(PkgFFmpeg_Static)/ffmpeg/*">
+      <Link>ffmpeg/%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
+  </ItemGroup>
+</Project>

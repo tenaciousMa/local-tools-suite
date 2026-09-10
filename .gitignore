@@ -1,0 +1,11 @@
+desktop/bin/
+desktop/obj/
+desktop/publish/
+desktop/video/bin/
+desktop/video/obj/
+desktop/video/publish/
+dist/
+tools/innosetup-installer.exe
+tools/innosetup-*.exe
+assets/app-icon.png
+assets/app-icon.ico

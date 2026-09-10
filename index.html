@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>文件改名台</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <path d="M14 2v6h6"></path>
+            <path d="m9 15 2 2 4-4"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>文件改名台</h1>
+          <span class="local-badge">本地处理</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button id="clearBtn" class="button ghost" type="button" disabled>清空列表</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="panel sidebar" aria-label="规则设置">
+        <section class="mode-card">
+          <div class="section-title">
+            <h2>处理方式</h2>
+          </div>
+          <div class="segmented" role="tablist" aria-label="处理方式">
+            <button id="modeCopyBtn" class="segment is-active" type="button" role="tab" aria-selected="true" data-mode="copy">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              下载改名文件
+            </button>
+            <button id="modeReplaceBtn" class="segment" type="button" role="tab" aria-selected="false" data-mode="replace">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 9-9"></path>
+                <polyline points="3 3 3 9 9 9"></polyline>
+              </svg>
+              替换源文件
+            </button>
+          </div>
+          <p class="mode-note" id="modeNote">生成改名副本，不修改电脑上的原文件。</p>
+        </section>
+
+        <section class="source-card">
+          <div class="section-heading">
+            <div class="section-title">
+              <h2 id="sourceTitle">文件来源</h2>
+              <span class="count-badge" id="sourceCount">0</span>
+            </div>
+          </div>
+
+          <div id="uploadZone" class="drop-zone">
+            <input id="fileInput" type="file" multiple hidden />
+            <div class="drop-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <button id="pickFilesBtn" class="button secondary" type="button">添加文件</button>
+          </div>
+
+          <div id="folderZone" class="folder-zone" hidden>
+            <div class="folder-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path>
+              </svg>
+            </div>
+            <button id="pickFolderBtn" class="button secondary" type="button">选择文件夹</button>
+            <p id="folderHint" class="compact-note"></p>
+          </div>
+
+          <div class="source-summary" id="sourceSummary" hidden>
+            <span class="summary-text" id="summaryText"></span>
+          </div>
+        </section>
+
+        <section class="rule-card">
+          <div class="section-title">
+            <h2>命名规则</h2>
+          </div>
+
+          <div class="field">
+            <label for="formulaInput">组合公式</label>
+            <input id="formulaInput" class="text-input code-input" value="{date}_{num}" spellcheck="false" />
+            <div class="token-row" role="toolbar" aria-label="插入变量">
+              <button class="token-btn" type="button" data-token="{YYYY}-{MM}-{DD}">数字日期</button>
+              <button class="token-btn" type="button" data-token="{YYYY}年{MM}月{DD}日">中文日期</button>
+              <button class="token-btn" type="button" data-token="{date}">完整日期</button>
+              <button class="token-btn" type="button" data-token="{HH}时{mm}分">时间</button>
+              <button class="token-btn" type="button" data-token="{num}">序号</button>
+              <button class="token-btn" type="button" data-token="{name}">原名</button>
+            </div>
+            <div class="preset-list" id="presetList" role="list" aria-label="常用组合">
+              <button class="preset is-active" type="button" data-preset="{date}_{num}" role="listitem">日期 + 序号</button>
+              <button class="preset" type="button" data-preset="{date}_{name}" role="listitem">日期 + 原名</button>
+              <button class="preset" type="button" data-preset="{name}_{date}" role="listitem">原名 + 日期</button>
+              <button class="preset" type="button" data-preset="{num}_{name}" role="listitem">序号 + 原名</button>
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="dateSource">日期取</label>
+              <select id="dateSource" class="select-input">
+                <option value="modified">文件修改时间</option>
+                <option value="now">当前时间</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="dateFormat">日期格式</label>
+              <select id="dateFormat" class="select-input">
+                <option value="YYYY-MM-DD">2026-09-09</option>
+                <option value="YYYYMMDD">20260909</option>
+                <option value="YYYY-MM-DD_HH-mm-ss" selected>2026-09-09_14-30-00</option>
+                <option value="YYYYMMDD_HHmmss">20260909_143000</option>
+                <option value="YYYY年MM月DD日">2026年09月09日</option>
+                <option value="YYYY年MM月DD日_HH时mm分ss秒">2026年09月09日_14时30分00秒</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="startNum">起始序号</label>
+              <input id="startNum" class="text-input" type="number" min="0" value="1" />
+            </div>
+            <div class="field">
+              <label for="padNum">序号位数</label>
+              <select id="padNum" class="select-input">
+                <option value="0">不补零</option>
+                <option value="2" selected>2 位</option>
+                <option value="3">3 位</option>
+                <option value="4">4 位</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="options">
+            <label class="check-label">
+              <input id="stripCheck" type="checkbox" />
+              <span>原名清理 (1) / 副本 等标记</span>
+            </label>
+            <label class="check-label">
+              <input id="lowerCheck" type="checkbox" />
+              <span>原名转为小写</span>
+            </label>
+            <label class="check-label">
+              <input id="overwriteCheck" type="checkbox" />
+              <span>源目录已有同名时追加序号</span>
+            </label>
+          </div>
+        </section>
+      </aside>
+
+      <section class="preview-panel panel" aria-label="改名预览">
+        <div class="preview-head">
+          <div class="section-title">
+            <h2>改名预览</h2>
+            <span class="count-badge" id="previewCount">0</span>
+          </div>
+          <div class="preview-tools">
+            <label class="check-label compact">
+              <input id="changedOnlyCheck" type="checkbox" />
+              <span>只看将改名</span>
+            </label>
+            <select id="sortSelect" class="select-input compact-select" aria-label="排序方式">
+              <option value="name">按名称</option>
+              <option value="modified">按修改时间</option>
+              <option value="added">按添加顺序</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="file-table">
+            <thead>
+              <tr>
+                <th class="col-index">#</th>
+                <th>原名</th>
+                <th class="col-time">时间</th>
+                <th>改名后</th>
+                <th class="col-state">状态</th>
+              </tr>
+            </thead>
+            <tbody id="fileBody"></tbody>
+          </table>
+          <div id="emptyState" class="empty-state">
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <path d="M14 2v6h6"></path>
+              <path d="M9 15h6"></path>
+              <path d="M12 12v6"></path>
+            </svg>
+            <p>等待文件</p>
+          </div>
+        </div>
+
+        <footer class="apply-bar">
+          <div class="apply-message" id="applyMessage"></div>
+          <div class="apply-actions">
+            <button id="resetRuleBtn" class="button ghost" type="button">还原默认规则</button>
+            <button id="applyBtn" class="button primary" type="button" disabled>
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              <span id="applyBtnText">一键改名</span>
+            </button>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
