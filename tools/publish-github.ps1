@@ -175,26 +175,25 @@ if (Test-Path -LiteralPath $renamerPath) {
 
 Write-Host "启用 GitHub Pages..."
 try {
-    $pages = Invoke-GitHubApi -Method "Get" -Uri "https://api.github.com/repos/$Owner/$Repository/pages"
+    Invoke-GitHubApi -Method "Get" -Uri "https://api.github.com/repos/$Owner/$Repository/pages" |
+        Out-Null
     Invoke-GitHubApi -Method "Put" -Uri "https://api.github.com/repos/$Owner/$Repository/pages" -Body @{
-        build_type = "workflow"
+        source = @{
+            branch = "main"
+            path = "/docs"
+        }
     } | Out-Null
 } catch {
     if ($_.Exception.Response.StatusCode.value__ -eq 404) {
         Invoke-GitHubApi -Method "Post" -Uri "https://api.github.com/repos/$Owner/$Repository/pages" -Body @{
-            build_type = "workflow"
+            source = @{
+                branch = "main"
+                path = "/docs"
+            }
         } | Out-Null
     } else {
         Write-Warning "Pages 自动设置失败，请检查仓库 Settings > Pages。$($_.Exception.Message)"
     }
-}
-
-try {
-    Invoke-GitHubApi -Method "Post" -Uri "https://api.github.com/repos/$Owner/$Repository/actions/workflows/pages.yml/dispatches" -Body @{
-        ref = "main"
-    } | Out-Null
-} catch {
-    Write-Warning "未自动触发 Pages 工作流，请检查 Actions 权限。$($_.Exception.Message)"
 }
 
 Write-Host ""
