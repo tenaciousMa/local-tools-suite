@@ -25,6 +25,7 @@ $headers = @{
 if (-not $Files -or $Files.Count -eq 0) {
     $Files = @(
         "docs/app.js",
+        "docs/assets/contact-sheet-bunny.png",
         "docs/assets/renamer-main.png",
         "docs/index.html",
         "docs/renamer/index.html",
