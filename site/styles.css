@@ -137,17 +137,15 @@ main {
 
 .hero {
   width: min(1240px, calc(100% - 48px));
-  min-height: calc(100vh - 68px);
+  min-height: auto;
   margin: 0 auto;
-  padding: 72px 0 44px;
-  display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(540px, 1.18fr);
-  align-items: center;
-  gap: 58px;
+  padding: 62px 0 42px;
+  text-align: center;
 }
 
 .hero-copy {
-  max-width: 550px;
+  max-width: 880px;
+  margin: 0 auto;
 }
 
 .eyebrow {
@@ -168,6 +166,8 @@ p {
 
 h1 {
   margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 620px;
   font-size: 54px;
   line-height: 1.08;
@@ -177,6 +177,8 @@ h1 {
 .hero-lede {
   max-width: 530px;
   margin-bottom: 28px;
+  margin-left: auto;
+  margin-right: auto;
   color: #516174;
   font-size: 17px;
 }
@@ -184,6 +186,7 @@ h1 {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -233,6 +236,7 @@ h1 {
 
 .hero-facts {
   display: flex;
+  justify-content: center;
   gap: 28px;
   margin: 34px 0 0;
 }
@@ -256,21 +260,48 @@ h1 {
 
 .workspace-visual {
   position: relative;
-  min-height: 500px;
+  max-width: 1080px;
+  min-height: 0;
+  margin: 42px auto 0;
 }
 
 .actual-app-screenshot {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
+  position: relative;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
+  height: auto;
+  display: block;
   background: #fff;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   box-shadow: var(--shadow);
+}
+
+.hero-tool-row {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-tool-row span {
+  min-height: 32px;
+  padding: 0 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: #435268;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.hero-tool-row img {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
 }
 
 .window {
@@ -844,7 +875,7 @@ footer span {
   }
 
   .workspace-visual {
-    min-height: 460px;
+    min-height: 0;
   }
 
   .feature-grid {
@@ -907,7 +938,7 @@ footer span {
   }
 
   .workspace-visual {
-    min-height: 355px;
+    min-height: 0;
   }
 
   .renamer-ui {
