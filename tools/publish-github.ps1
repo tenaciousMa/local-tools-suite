@@ -99,17 +99,17 @@ echo %VIDEO_GRID_GIT_TOKEN%
     $env:VIDEO_GRID_GIT_TOKEN = $token
     $env:GIT_ASKPASS = $askPassPath
     $env:GIT_TERMINAL_PROMPT = "0"
-    git -C $root -c credential.helper= -c core.askpass="$askPassPath" fetch origin main
+    git -C $root -c http.version=HTTP/1.1 -c credential.helper= -c core.askpass="$askPassPath" fetch origin main
     if ($LASTEXITCODE -ne 0) {
         throw "git fetch 失败，退出代码：$LASTEXITCODE"
     }
 
-    git -C $root -c credential.helper= -c core.askpass="$askPassPath" rebase origin/main
+    git -C $root -c http.version=HTTP/1.1 -c credential.helper= -c core.askpass="$askPassPath" rebase origin/main
     if ($LASTEXITCODE -ne 0) {
         throw "本地提交与远端 main 存在冲突，请手动处理后重试。"
     }
 
-    git -C $root -c credential.helper= -c core.askpass="$askPassPath" push -u origin main
+    git -C $root -c http.version=HTTP/1.1 -c credential.helper= -c core.askpass="$askPassPath" push -u origin main
         if ($LASTEXITCODE -ne 0) {
             throw "git push 失败，退出代码：$LASTEXITCODE"
         }
