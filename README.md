@@ -2,6 +2,8 @@
 
 两个 Windows 原生桌面工具，界面直接运行在 exe 中，不打开浏览器、不依赖 Node/Python。
 
+在线展示页：<https://tenaciousMa.github.io/local-tools-suite/>
+
 ## 视频截图拼图台安装包
 
 标准安装包：

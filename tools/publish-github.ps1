@@ -7,6 +7,7 @@
 )
 
 $ErrorActionPreference = "Stop"
+Add-Type -AssemblyName System.Net.Http
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $installerPath = Join-Path $root "dist\installer\视频截图拼图台_安装包_v1.0.0.exe"
 $renamerPath = Join-Path $root "desktop\publish\FileRenamerDesktop.exe"
